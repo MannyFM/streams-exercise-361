@@ -1,10 +1,9 @@
 package kz.edu.nu.cs.teaching;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -14,14 +13,34 @@ import java.util.stream.Stream;
  */
 public class App {
     public static void main(String[] args) {
-        File file = new File("lambtest.txt");
+        Stream<String> s = getTestLinesStream();
+        
+        // s.forEach(System.out::println);
+        // s.close();
+        
+        //s = getTestLinesStream();
+        //s.map((x) -> x.toUpperCase()).forEach(System.out::println);
+        //s.close();
+        
+        
+        
+        // getTestLinesStream().flatMap((x) -> Stream.of(x.split(" "))).forEach(System.out::println);
+        
+        // long l = getTestLinesStream().flatMap((x) -> Stream.of(x.split(" "))).count();
+        // System.out.println(l);
+        
+        System.out.println(getTestLinesStream().collect(Collectors.groupingBy((x) -> x.length())));
 
+    }
+    
+    public static Stream<String> getTestLinesStream() {
+        File file = new File("lambtest.txt");
+        
         try {
-            Stream<String> s = Files.lines(file.toPath());
-            s.forEach(System.out::println);
-            s.close();
+            return Files.lines(file.toPath());
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error reading from file");
+            return null;
         }
     }
 }
