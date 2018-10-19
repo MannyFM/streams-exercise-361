@@ -3,7 +3,6 @@ package kz.edu.nu.cs.teaching;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -49,17 +48,16 @@ public class App {
         s.close();
     }
 
-    public static Map<Character, Long> groupByExample() {
+    public static void groupByExample() {
         Stream<String> s = getTestLinesStream();
         if (s == null)
-            return null;
+            return;
         Map<Character, Long> result = s.map(x -> x.split("\\s"))
             .flatMap(Arrays::stream)
             .collect(Collectors.groupingBy((String x) -> x.charAt(0), Collectors.counting()));
         result.forEach((x, y) -> System.out.println(x + ":" + y));
         System.out.println("---------------------------------");
         s.close();
-        return result;
     }
 
     public static Stream<String> getTestLinesStream() {
