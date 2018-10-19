@@ -41,7 +41,7 @@ public class App {
         Stream<String> s = getTestLinesStream();
         if (s == null)
             return;
-        s.filter((String x) -> Arrays.stream(x.split("\\s"))
+        s.filter((String x) -> Arrays.stream(x.split("[^a-zA-Z]"))
             .map(y -> y.length() > 7)
             .reduce(false, (a, b) -> a || b)).forEach(System.out::println);
         System.out.println("---------------------------------");
@@ -52,9 +52,9 @@ public class App {
         Stream<String> s = getTestLinesStream();
         if (s == null)
             return;
-        Map<Character, Long> result = s.map(x -> x.split("\\s"))
-            .flatMap(Arrays::stream)
-            .collect(Collectors.groupingBy((String x) -> x.charAt(0), Collectors.counting()));
+        Map<Character, Long> result = s.map(x -> x.split("[^a-zA-Z]"))
+            .flatMap(Arrays::stream).map(String::toLowerCase)
+            .collect(Collectors.groupingBy((String x) -> x.length() > 0 ? x.charAt(0) : '-', Collectors.counting()));
         result.forEach((x, y) -> System.out.println(x + ":" + y));
         System.out.println("---------------------------------");
         s.close();
