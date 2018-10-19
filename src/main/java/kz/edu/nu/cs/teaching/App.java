@@ -3,6 +3,7 @@ package kz.edu.nu.cs.teaching;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -12,25 +13,12 @@ import java.util.stream.Stream;
  *
  */
 public class App {
+    
     public static void main(String[] args) {
         Stream<String> s = getTestLinesStream();
         
-        // s.forEach(System.out::println);
-        // s.close();
-        
-        //s = getTestLinesStream();
-        //s.map((x) -> x.toUpperCase()).forEach(System.out::println);
-        //s.close();
-        
-        
-        
-        // getTestLinesStream().flatMap((x) -> Stream.of(x.split(" "))).forEach(System.out::println);
-        
-        // long l = getTestLinesStream().flatMap((x) -> Stream.of(x.split(" "))).count();
-        // System.out.println(l);
-        
-        System.out.println(getTestLinesStream().collect(Collectors.groupingBy((x) -> x.length())));
-
+        s.forEach(System.out::println);
+        s.close();
     }
     
     public static Stream<String> getTestLinesStream() {
